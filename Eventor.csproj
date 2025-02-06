@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-WorkerService2-33cfdb08-2e12-46e2-837b-e26fabf17a31</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FirebirdSql.Data.FirebirdClient" Version="10.3.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="8.0.0" />
+	  <PackageReference Include="MQTTnet" Version="5.0.1.1416" />
+	  <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0" />
+	  <PackageReference Include="System.Text.Json" Version="9.0.1" />
+  </ItemGroup>
+</Project>
