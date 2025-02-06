@@ -74,7 +74,7 @@ namespace WorkerService2
             DataTable table = new DataTable();
                 table.Load(reader);
                 id = (long)(table.Rows[0]["gen_id"]);// получил id последного событи€ из базы данных
-                _logger.LogTrace(id.ToString());
+                _logger.LogTrace("77 id_event при старте программы " + id.ToString());
                // con.Close();
       
 
@@ -96,8 +96,7 @@ namespace WorkerService2
                     FbCommand comd = new FbCommand(sql, con);
                     try
                     {
-                        //var reader =  comd.ExecuteReader();
-                        var reader = comd.ExecuteReaderAsync();
+                        var reader = comd.ExecuteReader();
                         table.Load(reader);
                         Console.WriteLine("83 table has rows " + table.Rows.Count);
                     }
@@ -121,19 +120,18 @@ namespace WorkerService2
                     foreach (DataRow row in table.Rows)
                     {
                         Console.WriteLine("---------------------------");
-                        int id_dev = (int) row["id_dev"];
+                        int id_dev = (int) row["id_dev"];//извлекаю id_dev устройства (точки прохода)
                         //id_dev = 14;
-                        id= (int)row["id_event"];
+                        id= (int)row["id_event"];//запоминаю id_event последнего событи€
                         if (!_options.idmap.ContainsKey(id_dev))
                         {
-                            _logger.LogDebug("ID_DEV= " + id_dev.ToString() + " нет в настройках.");
+                            _logger.LogDebug("128 ID_DEV= " + id_dev.ToString() + " нет в настройках.");
                             return;
                         }
                         //    ContainsKey(id_dev))) return;
-                        _logger.LogDebug("103 ќбрабатываю событие от ID_DEV= " + id_dev.ToString());
+                        _logger.LogDebug($"103 ќбрабатываю событие от ID_DEV= {id_dev.ToString()} id_event= {row["id_event"].ToString()} «аписываю в топик  {_options.topic}{_options.idmap[id_dev].ToString()} = {row["id_eventtype"].ToString()}");
 
-                        _logger.LogDebug(row["id_event"].ToString());
-                        _logger.LogDebug($"109 {_options.topic}{_options.idmap[id_dev].ToString()}");
+                        //_logger.LogDebug($"109 «аписываю в топик  {_options.topic}{_options.idmap[id_dev].ToString()} = {row["id_eventtype"].ToString()}");
                         var message = new MqttApplicationMessageBuilder()
                         .WithTopic($"{_options.topic}{_options.idmap[id_dev].ToString()}")
 
